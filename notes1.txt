@@ -1,0 +1,55 @@
+
+//Euler phi for n = p_1 ^ b_1 * ... * p_k ^ b^k
+phi(n) = prod ( p_i - 1 )*( p_i ^ ( b_i - 1 ), i=1...k )
+       = n * prod ( 1 - ( 1 / p_i ) )
+Euler theorem: if gcd(a,n) = 1 then a ^ phi(n) ~ 1 ( mod n )
+
+//Binomial coefficient C[n][k] = n! / ( k! * (n-k)! )
+int C[TAM][TAM];
+void calc_pascal() {
+  memset(C, 0, sizeof(C));
+  for (int i = 0; i < TAM; i++) {
+    C[i][0] = C[i][i] = 1;
+    for (int j = 1; j < i; j++)
+      C[i][j] = C[i-1][j-1] + C[i-1][j];
+  }
+}
+
+//Catalan Numbers
+Catalan(n) = (1/(n+1))*C[2n][n] = (2n)! / ( n! * (n+1)! )
+Catalan(n+1) = (2*(2n+1)/(n+2)) * Catalan(n)
+             = sum_{i=0..n} Catalan(i)*Catalan(n-i) with Catalan(0)=1
+             
+Catalan(n) is: (i) expressions with n pairs of parenthesis correctly matched, (ii) ways of performing a binary associative operation on a[0]*...*a[n] ( n+1 factors ), (iii) number of rooted binary trees with n+1 leaves (if leaves are labeled and the operation is commutative, we have an (n+1)! factor), (iv) number of monotonic paths along the edges of a grid with n × n square cells, which do not pass above the diagonal, (v) the number of different ways a convex polygon with n + 2 sides can be cut into triangles by connecting vertices with straight lines
+
+//Stirling Number of the first kind
+x(x-1)...(x-n+1) = sum_{k=0..n} s(n,k) x^k
+s(n+1,k) = s(n,k-1)-n*s(n,k) --> s(n,0)=delta(n), s(0,1)=0, s(1,1)=1
+The absolute value of the Stirling number of the first kind, s(n,k), counts the number of permutations of n objects with exactly k orbits (equivalently, with exactly k cycles).
+
+//Stirling numbers of the second kind
+(x)_n = x(x-1)...(x-n+1) --> x^n = sum_{k=0..n} S(n,k) (x)_k
+S(n,k) = S(n-1,k-1) + k*S(n-1,k) --> S(n,1) = 1, S(n,n) = 1
+S(n,k)%2 == ! ( (n-k) & ((k-1)/2) );
+S(n,n-1) = C[n][2] = n(n-1)/2
+S(n,k) gives the number of possible rhyming schemes for n lines using k unique rhyming syllables.
+
+//Bell Number
+B(n+1) = sum_{k=0..n} C[n][k] B(k) = sum_{k=1...n} S(n,k)
+if p is prime B(p+n) ~ B(n) + B(n+1) ( mod p ) [ Touchard ]
+Bn is the number of partitions of a set of size n. A partition of a set S is defined as a set of nonempty, pairwise disjoint subsets of S whose union is S.
+
+
+//Mobius mi function ( n = prod ( p[i] ^ e[i] , i =1...k ) )
+mi(1) = 1, mi(n) = (-1)^k if e[i]=1 for i=1...k, mi(n)=0 otherwise
+sum_{d|n}mi(d) = 1 if n==1 and 0 otherwise
+Inversion formula: f(n)=sum_{d|n}g(d) <=> g(n)=sum_{d|n}mi(d)f(n/d)
+sigma(n)=sum_{d|n}d = prod( (p[i]^(e[i]-1) - 1)/(p[i]-1) ) //sigma
+
+//NIM Game
+Rules of the Game of Nim: There are n piles of coins. When it is a player's turn he chooses one pile and takes at least one coin from it. If someone is unable to move he loses (so the one who removes the last coin is the winner). If the piles have size n1,...,nk, then it is a losing position for the player whose turn it is if and only if n1 xor n2 xor .. xor nk = 0.
+
+//Pick's Theorem
+Pick's theorem provides a simple formula for calculating the area A of this polygon in terms of the number i of interior points located in the polygon and the number b of boundary points placed on the polygon's perimeter: A = i + (b/2) - 1
+
+

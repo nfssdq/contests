@@ -1,0 +1,32 @@
+number of lattice points in between a segment of (x1, y1) and (x2,y2) is gcd( abs(x1-x2), abs(y1-y2)) + 1.
+
+if segment tree problem requires time machine then use persistent segment tree
+
+a^(b^c) % m, gcd(a, m) = 1, first get k = (b^c) % phi(m) then a^( k ) % m;
+
+number of values that has at least k occurence in [L..R] can be found by sqrt-segmentation
+
+derangements : dr[i] = (i - 1) * (dr[i - 1] + dr[i - 2]); dr[0] = dr[2] = 1; dr[1] = 0;
+
+A technique for matrix expo: when you are facing a problem where you have to find out dp[i][j] = sum{for(k=1 to n)for(l=1 to m)dp[i-k][l]}
+then put all last n*m values in the matrix like this {dp[i-1][1],dp[i-1][2]...,dp[i-1][m],....dp[n][m]} also works on the variations. 
+
+number of ways to ditribute n chocolate among r persons is (n+r-1)C(r-1)
+
+maximum weighted independent set in bipartite graph : create a graph with weight of the left group vertices as the capacity from source to 
+left group vertices, do the same for right and sink. add edge between left and right with cap inf. sum of all vertices - flow is ans.
+
+number of divisors : 
+10^5 -> 200
+10^12 -> 6000
+10^18 -> 100000
+
+given n integers, find for x how many integers satisfy (Ai & x = x) =>
+(0<=k<bit(n)) F[k][x] = F[k-1][x] + F[k-1][x | 1<<k]; if k th bit is 0
+			  F[k][x] = F[k-1][x]; otherwise
+
+given n different types of flower and their count, number of ways to make s -> http://codeforces.com/blog/entry/13181 -> E
+
+picks theorem : A = i + (b/2) - 1 , i = interrior points, b = boundary points.
+
+harmonic series sum(1..n) = ln(n) + 0.57721566490153286060651
